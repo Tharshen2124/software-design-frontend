@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useRouter } from "next/router"
+import { jwtDecode } from "jwt-decode";
 
 export function useAuthCallback() {
   const router = useRouter()
@@ -14,8 +15,31 @@ export function useAuthCallback() {
     }
 
     if (token && typeof token === "string") {
-      sessionStorage.setItem("access_token", token)
-      router.replace("/dashboard")
+      try {
+        // Save raw token
+        sessionStorage.setItem("access_token", token)
+
+        // Decode and save user info
+        const decoded = jwtDecode(token)
+        const isExpired = decoded.exp * 1000 < Date.now()
+        if (isExpired) {
+          console.warn("Token is expired")
+          return
+        }
+
+        const user = {
+          id: decoded.sub,
+          name: decoded.user_metadata.name,
+          picture: decoded.user_metadata.picture,
+        }
+
+        sessionStorage.setItem("user", JSON.stringify(user))
+
+        router.replace("/blog")
+      } catch (err) {
+        console.error("Failed to decode token:", err)
+        router.replace("/login?error=invalid_token")
+      }
     }
   }, [router])
 }
