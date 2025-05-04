@@ -2,9 +2,11 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu, X, MapPin, Camera, Clock, Users } from "lucide-react"
+import { useRouter } from "next/router"
 
 export default function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const router = useRouter()
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -19,19 +21,8 @@ export default function LandingPage() {
               </div>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Features
-              </Link>
-              <Link href="#how-it-works" className="text-gray-600 hover:text-blue-600 transition-colors">
-                How It Works
-              </Link>
-              <Link href="#impact" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Impact
-              </Link>
-              <Link href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Testimonials
-              </Link>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+            
+              <button onClick={() => router.push('/login')} className="font-semibold bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
                 Get Started
               </button>
             </nav>
@@ -50,35 +41,8 @@ export default function LandingPage() {
         {isMenuOpen && (
           <div className="md:hidden bg-white shadow-lg">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Link
-                href="#features"
-                className="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
-              </Link>
-              <Link
-                href="#how-it-works"
-                className="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                How It Works
-              </Link>
-              <Link
-                href="#impact"
-                className="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Impact
-              </Link>
-              <Link
-                href="#testimonials"
-                className="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Testimonials
-              </Link>
-              <button className="w-full text-left px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+             
+              <button onClick={() => router.push('/login')} className="w-full text-left px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
                 Get Started
               </button>
             </div>
@@ -98,12 +62,10 @@ export default function LandingPage() {
                   unsafe buildings.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-medium hover:bg-gray-100 transition-colors">
-                    Report an Issue
+                  <button onClick={() => router.push('/login')} className="bg-white font-semibold text-blue-600 px-6 py-3 rounded-md font-medium hover:bg-gray-100 transition-colors">
+                    Login
                   </button>
-                  <button className="bg-transparent border border-white text-white px-6 py-3 rounded-md font-medium hover:bg-white/10 transition-colors">
-                    Learn More
-                  </button>
+                
                 </div>
               </div>
               <div className="hidden md:block relative h-96">
@@ -324,14 +286,7 @@ export default function LandingPage() {
             <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
               Join thousands of citizens who are making their cities better, one report at a time.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-medium hover:bg-gray-100 transition-colors">
-                Download the App
-              </button>
-              <button className="bg-transparent border border-white text-white px-6 py-3 rounded-md font-medium hover:bg-white/10 transition-colors">
-                Learn More
-              </button>
-            </div>
+            
           </div>
         </section>
       </main>
@@ -350,58 +305,9 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-lg mb-4">Platform</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    How It Works
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    For Cities
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    For Citizens
-                  </Link>
-                </li>
-              </ul>
-            </div>
+           
 
-            <div>
-              <h3 className="font-semibold text-lg mb-4">Company</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Press
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
+       
             <div>
               <h3 className="font-semibold text-lg mb-4">Legal</h3>
               <ul className="space-y-2">

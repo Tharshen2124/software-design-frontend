@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function Sidebar(isOpen, onClose) {
+export function Sidebar({ isOpen, onClose }) {
   return (
     <>
       {/* Overlay */}
@@ -47,19 +47,22 @@ export function Sidebar(isOpen, onClose) {
               Dashboard
             </Link>
             <Link
-              href="/reports"
+              href="/members"
               className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              Report
+              Members
             </Link>
             <Link
-              href="/history"
+              href="/meetups"
               className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              History
+              Meetups
             </Link>
           </nav>
           <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+              Admin Mode
+            </p>
             <button className="w-full bg-gray-800 text-white dark:bg-white dark:text-black font-semibold py-2 px-4 rounded-md hover:bg-gray-700 dark:hover:bg-gray-100 transition duration-200">
               Logout
             </button>
