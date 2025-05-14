@@ -1,3 +1,4 @@
+import { backendURL } from "@/utils/env"
 import { MapPin } from "lucide-react"
 
 export default function LoginPage() {
@@ -5,7 +6,7 @@ export default function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault()
     // Trigger full page redirect to backend OAuth endpoint
-    window.location.href = `http://localhost:8000/auth/login`
+    window.location.href = `${backendURL}/auth/login`
   }
   
   return (
