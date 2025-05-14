@@ -5,7 +5,7 @@ export default function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault()
     // Trigger full page redirect to backend OAuth endpoint
-    window.location.href = 'http://localhost:8000/auth/login'
+    window.location.href = `http://localhost:8000/auth/login`
   }
   
   return (

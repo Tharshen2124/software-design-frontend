@@ -70,7 +70,7 @@ export default function CreateBlogPage() {
         
         if (response.ok) { 
             alert("Blog post created successfully")
-            router.push("/blogs")
+            router.push("/blog")
         }
 
     } catch (error) {
