@@ -2,13 +2,35 @@ import { useState } from "react";
 import { MapPin, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { Sidebar } from "./Sidebar";
+import { backendURL } from "@/utils/env";
+import { useRouter } from "next/router";
 
 export default function NavigationBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const router = useRouter()
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  async function handleLogout() {
+    try {
+      const response = await fetch(`${backendURL}/auth/logout`, {
+        headers: {
+          "Accept": "application/json",
+        },
+      })
+
+      if(response.ok) {
+        alert("Successfully logged out!")
+        router.push('/')
+      }
+    } catch(error) {
+      console.log("Error", error)
+      alert("error occured during logout")
+    }
+   
+
+  }
 
   return (
     <>
@@ -24,16 +46,16 @@ export default function NavigationBar() {
             <Link href="/complaints" className="hover:text-blue-400">
               Complaints
             </Link>
-            <Link href="/history" className="ml-4 hover:text-blue-400">
+            <Link href="/bruh" className="ml-4 hover:text-blue-400">
               History
             </Link>
             <Link href="/blog" className="ml-4 hover:text-blue-400">
               Blogs
             </Link>
           </div>
-            <div className="w-10 h-10 rounded-full bg-green-800 flex items-center justify-center text-white font-bold">
-              T
-            </div>
+           <button onClick={() => handleLogout()} className="w-24 h-10 rounded-full bg-blue-800 flex items-center justify-center text-white font-semibold">
+              Logout
+            </button>
         </div>
       </nav>
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
