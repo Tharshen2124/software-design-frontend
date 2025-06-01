@@ -89,7 +89,7 @@ export default function CreateMaintenancePlan() {
       <main className="px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Plan</h1>
         <p className="text-gray-600 mt-1 mb-8">
-          Check out some of our citizen's latest post! Discuss, share and let us know how we can help!
+          Create a plan for maintenance companies to work on!
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
