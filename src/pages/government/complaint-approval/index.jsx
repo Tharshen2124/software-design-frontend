@@ -10,16 +10,16 @@ export default function ComplaintApproval() {
 
   useEffect(() => {
     async function getData() {
-      const response = await fetch(`${backendURL}/complaints/custom-admin/`)
+      const response = await fetch(`${backendURL}/complaints/government/`)
       const data = await response.json()
-      setComplaints(data.complaints)
+      setComplaints(data.filtered_complaints)
     }
     getData()
   }, [])
 
     const handleApprove = async (id) => {
       const formData = new FormData
-      formData.append("status", "filtered")
+      formData.append("status", "approved")
 
       try {
         const response = await fetch(`${backendURL}/complaints/update-status/${id}/`, {

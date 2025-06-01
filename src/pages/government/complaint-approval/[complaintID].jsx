@@ -42,7 +42,7 @@ export default function ComplaintDetails() {
 
   const handleApprove = async (id) => {
     const formData = new FormData
-    formData.append("status", "filtered")
+    formData.append("status", "approved")
 
     try {
       const response = await fetch(`${backendURL}/complaints/update-status/${id}/`, {
@@ -57,7 +57,7 @@ export default function ComplaintDetails() {
         console.error("error during fetching but not caught", await response.json())
       }
       
-      router.push('/admin/complaint-approval')
+      router.push('/government/complaint-approval')
     } catch(error) {
       alert("Something went wrong! Please try again.")
       console.error('error during fetching', error)
@@ -80,7 +80,7 @@ export default function ComplaintDetails() {
       if(!response.ok) {
         console.error("error during fetching but not caught")
       }
-      router.push('/admin/complaint-approval')
+      router.push('/government/complaint-approval')
     } catch(error) {
       alert("Something went wrong! Please try again.")
       console.error('error during fetching', error)
