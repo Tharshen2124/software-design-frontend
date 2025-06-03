@@ -6,7 +6,7 @@ export function useAuthCallback() {
   const router = useRouter()
 
   useEffect(() => {
-    const { token, error } = router.query
+    const { token, error, invitation_id } = router.query
 
     if (error) {
       console.error("OAuth Error:", error)
@@ -31,6 +31,8 @@ export function useAuthCallback() {
           id: decoded.sub,
           name: decoded.user_metadata.name,
           picture: decoded.user_metadata.picture,
+          email: decoded.email,
+          invitation_id: typeof invitation_id === "string" ? invitation_id : null,
         }
 
         sessionStorage.setItem("user", JSON.stringify(user))
