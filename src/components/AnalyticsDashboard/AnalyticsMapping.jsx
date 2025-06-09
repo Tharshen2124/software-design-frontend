@@ -38,3 +38,26 @@ export const summaryConfig = {
     color: "bg-green-100",
   },
 }
+
+export const statusColorMap = {
+  pending: {
+    name: "Pending",
+    color: "#4299E1", // blue-500
+  },
+  filtered: {
+    name: "Filtered",
+    color: "#ED8936", // orange-500
+  },
+  approved: {
+    name: "Approved",
+    color: "#9F7AEA", // purple-500
+  },
+  in_progress: {
+    name: "In Progress",
+    color: "#38B2AC", // teal-500
+  },
+  rejected: {
+    name: "Rejected",
+    color: "#E53E3E", // red-600
+  },
+};
