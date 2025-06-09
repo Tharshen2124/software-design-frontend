@@ -34,7 +34,7 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="border-b border-[#e0e0e0] w-full h-[70px] flex items-center">
+      <nav className="border-b border-gray-200 w-full h-[70px] flex items-center">
         <div className="container w-[95%] mx-auto flex items-center justify-between">
         <div className="flex items-center">
             <Link href="/" className="flex items-center">
