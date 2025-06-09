@@ -6,6 +6,7 @@ import SummaryPages from "@/components/AnalyticsDashboard/Summary";
 import { getUserFromToken } from "@/utils/extractUserFromToken";
 import ComplaintsOverTimeChart from "@/components/AnalyticsDashboard/ComplaintsOverTime";
 import StatusDistributionChart from "@/components/AnalyticsDashboard/StatusDistributionPieChart";
+import StatusBreakdown from "@/components/AnalyticsDashboard/StatusBreakdown";
 
 export default function AnalyticsPage() {
     useAuthGuard()
@@ -52,6 +53,9 @@ export default function AnalyticsPage() {
 
                     {/* status distribution */}
                     <StatusDistributionChart />
+
+                    {/* pie chart breakdown */}
+                    <StatusBreakdown />
 
                 </div>
             </main>

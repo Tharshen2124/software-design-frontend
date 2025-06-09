@@ -42,7 +42,7 @@ export default function StatusDistributionChart() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div>
       <div className="bg-white p-6 rounded-lg border border-gray-200">
         <h2 className="text-xl font-bold text-gray-900 mb-6">
           Complaint Status Distribution
