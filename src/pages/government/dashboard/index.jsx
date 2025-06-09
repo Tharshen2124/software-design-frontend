@@ -4,6 +4,7 @@ import { useAuthGuard } from "@/hooks/useAuthGuard"
 import DashboardLayout from "@/components/DashboardLayout"
 import SummaryPages from "@/components/AnalyticsDashboard/Summary";
 import { getUserFromToken } from "@/utils/extractUserFromToken";
+import ComplaintsOverTimeChart from "@/components/AnalyticsDashboard/ComplaintsOverTime";
 
 export default function AnalyticsPage() {
     useAuthGuard()
@@ -46,6 +47,7 @@ export default function AnalyticsPage() {
                     <SummaryPages />
 
                     {/* complaints over time chart */}
+                    <ComplaintsOverTimeChart />
 
                 </div>
             </main>
