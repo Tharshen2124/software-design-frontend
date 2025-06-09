@@ -1,21 +1,28 @@
 import { useEffect, useState, useMemo } from "react"
 import { backendURL } from "@/utils/env"
+import { useAuthGuard } from "@/hooks/useAuthGuard"
 import DashboardLayout from "@/components/DashboardLayout"
 import SummaryPages from "@/components/AnalyticsDashboard/Summary";
+import { getUserFromToken } from "@/utils/extractUserFromToken";
 
 export default function AnalyticsPage() {
+    useAuthGuard()
     const [dashboardData, setDashboardData] = useState(null)
 
     useEffect(()=>{
-        fetch(`${backendURL}/dashboard/`)
+        const user = getUserFromToken();
+
+        fetch(`${backendURL}/dashboard?user_id=${user.id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("access_token")}`
+            }
+        })
         .then((res) => res.json())
         .then((data) => {
             setDashboardData(data.dashboard)
         })
-        .catch((err) => {
-            console.error("Failed to render:", err);
-            alert("APIERROR: Failed rendering dashboard.");
-        });
+        .catch(err => console.error("Error:", err));
     }, []);
 
     return (

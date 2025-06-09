@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
 import { backendURL } from "@/utils/env";
 import { summaryConfig } from "./AnalyticsMapping";
+import { useAuthGuard } from "@/hooks/useAuthGuard"
 import SummaryCards from "@/components/AnalyticsDashboard/SummaryCards";
+import { getUserFromToken } from "@/utils/extractUserFromToken";
+
 
 export default function SummaryPages() {
+  useAuthGuard()
   const [analyticsData, setAnalyticsData] = useState(null);
 
-  useEffect(() => {
-    fetch(`${backendURL}/dashboard/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAnalyticsData(data.analytics.summary);
-      })
-      .catch((err) => {
-        console.error("Failed to render:", err);
-        alert("APIERROR: Failed rendering analytics.");
-      });
+  useEffect(()=>{
+    const user = getUserFromToken();
+
+    fetch(`${backendURL}/dashboard?user_id=${user.id}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${sessionStorage.getItem("access_token")}`
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setAnalyticsData(data.analytics.summary)
+    })
+    .catch(err => console.error("Error:", err));
   }, []);
 
   return (
