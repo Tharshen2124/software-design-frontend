@@ -43,10 +43,10 @@ export default function NavigationBar() {
             </Link>
           </div>
           <div className="hidden lg:flex items-center">
-            <Link href="/complaints" className="hover:text-blue-400">
-              Complaints
+            <Link href="/citizen/complaints/create" className="hover:text-blue-400">
+              Complain
             </Link>
-            <Link href="/bruh" className="ml-4 hover:text-blue-400">
+            <Link href="/citizen/complaints/history" className="ml-4 hover:text-blue-400">
               History
             </Link>
             <Link href="/blog" className="ml-4 hover:text-blue-400">
