@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/DashboardLayout"
 import { backendURL } from "@/utils/env"
 import { formatDate } from "@/utils/formatDate"
-import { ArrowLeft, Calendar, Link } from "lucide-react"
+import { ArrowLeft, Calendar, ImageIcon, Link } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -95,6 +95,11 @@ export default function ComplaintDetails() {
           <p className="text-gray-700 leading-relaxed mb-6">
             {complaint.complaint_description}
           </p>
+
+          <a href={`${complaint.complaint_image_url}`} target="_blank" className="flex items-center text-blue-600 hover:underline">
+            <ImageIcon className="w-5 h-5 mr-2" />
+            Attached Image
+          </a>
         </div>
     </DashboardLayout>
   )
