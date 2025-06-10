@@ -3,9 +3,10 @@ import DashboardLayout from "@/components/DashboardLayout"
 import { useEffect, useState } from "react"
 import { backendURL } from "@/utils/env"
 import { useAuthGuard } from "@/hooks/useAuthGuard"
-import { Plus, PlusCircle } from "lucide-react"
+import { PlusCircle } from "lucide-react"
 import { useRouter } from "next/router"
 import { formatDate } from "@/utils/formatDate"
+import { truncateText } from "@/utils/truncateText"
 
 export default function BlogsPage() {
   useAuthGuard()
@@ -57,29 +58,9 @@ function BlogCard({ post }) {
     <div className="py-4 flex-1 flex flex-col">
         <div className="px-4 flex justify-between items-center mb-2">
           <span className="text-sm text-gray-500">{formatDate(post.created_at) || "N/A"}</span>
-            {/* <div className="flex space-x-1">
-              <button className="text-blue-600 hover:text-blue-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-              <button className="text-red-600 hover:text-red-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div> */}
         </div>
-        <h2 className="px-4 text-lg font-bold mb-2">{post.title || "N/A"}</h2>
-        <p className="px-4 text-gray-600 text-sm mb-4 flex-1">{post.content || "N/A"}</p>
+        <h2 className="px-4 text-lg font-bold mb-2">{truncateText(post.title,60) || "N/A"}</h2>
+        <p className="px-4 text-gray-600 text-sm mb-4 flex-1">{truncateText(post.content, 120) || "N/A"}</p>
         <div className="px-4">
             <button onClick={() => router.push(`/blog/${post.id}/`)} className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
                 View More

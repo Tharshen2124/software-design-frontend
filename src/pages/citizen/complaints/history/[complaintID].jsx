@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/DashboardLayout"
 import { backendURL } from "@/utils/env"
 import { formatDate } from "@/utils/formatDate"
-import { ArrowLeft, Calendar, Link } from "lucide-react"
+import { ArrowLeft, Calendar, ImageIcon, Link } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -13,7 +13,6 @@ export default function ComplaintDetails() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-
     async function getData() {
       setIsLoading(true)
       try {
@@ -38,53 +37,6 @@ export default function ComplaintDetails() {
 
   const handleBack = () => {
     router.back()
-  }
-
-  const handleApprove = async (id) => {
-    const formData = new FormData
-    formData.append("status", "approved")
-
-    try {
-      const response = await fetch(`${backendURL}/complaints/update-status/${id}/`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Accept": "application/json",
-        },
-      })
-      
-      if(!response.ok) {
-        console.error("error during fetching but not caught", await response.json())
-      }
-      
-      router.push('/government/complaint-approval')
-    } catch(error) {
-      alert("Something went wrong! Please try again.")
-      console.error('error during fetching', error)
-    }
-  }
-
-  const handleReject = async (id) => {
-    const formData = new FormData
-    formData.append("status", "rejected")
-
-    try {
-      const response = await fetch(`${backendURL}/complaints/update-status/${id}/`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Accept": "application/json",
-        },
-      })
-      
-      if(!response.ok) {
-        console.error("error during fetching but not caught")
-      }
-      router.push('/government/complaint-approval')
-    } catch(error) {
-      alert("Something went wrong! Please try again.")
-      console.error('error during fetching', error)
-    }
   }
 
   if(isLoading) {
@@ -125,8 +77,8 @@ export default function ComplaintDetails() {
           <h1 className="text-3xl font-bold mb-6">Complaint Details</h1>
 
           <div className="flex items-center mb-4">
-            <Image src={`${complaint.citizens.users.profile_picture}` } alt="profile image" width="40" height="40" className="rounded-full mr-2" />
-            <span className="font-medium text-lg">{complaint.citizens.users.full_name}</span>
+            <Image src={`${complaint.citizens.users.profile_picture}` } alt="profile image" width="30" height="30" className="rounded-full mr-2" />
+            <span className="font-medium text-md">{complaint.citizens.users.full_name}</span>
           </div>
 
           <div className="flex items-center mb-6 text-gray-600">
@@ -136,24 +88,9 @@ export default function ComplaintDetails() {
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <button
-              onClick={() => handleApprove(complaint.complaint_id)}
-              className="py-3 bg-green-600 hover:bg-green-700 active:outline-2 active:outline-green-400 text-white font-semibold rounded transition-colors"
-            >
-              Approve
-            </button>
-            <button
-              onClick={() => handleReject(complaint.complaint_id)}
-              className="py-3 bg-red-600 hover:bg-red-700 active:outline-2 active:outline-red-400 text-white font-semibold rounded transition-colors"
-            >
-              Reject
-            </button>
-          </div>
-
           <hr className="border-gray-200 mb-6" />
 
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{complaint.complaint_title}</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">{complaint.complaint_title}</h2>
 
           <p className="text-gray-700 leading-relaxed mb-6">
             {complaint.complaint_description}
