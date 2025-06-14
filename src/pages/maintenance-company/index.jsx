@@ -20,7 +20,7 @@ export default function AdminInvitePage() {
 
     const fetchMaintenanceProjects = async () => {
       try {
-        const response = await fetch(`${backendURL}/maintenance/${user_id}`)
+        const response = await fetch(`${backendURL}/maintenance/company/${user_id}`)
         const data = await response.json()
         setPendingProjects(data.pending_projects || [])
         setInProgressProjects(data.in_progress_projects || [])

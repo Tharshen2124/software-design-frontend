@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 import { backendURL } from "@/utils/env"
 import DashboardLayout from "@/components/DashboardLayout"
 import { useAuthGuard } from "@/hooks/useAuthGuard"

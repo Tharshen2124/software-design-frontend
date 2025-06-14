@@ -1,28 +1,18 @@
 import { useState } from "react"
-import { useRouter } from "next/router"
 import { backendURL } from "@/utils/env"
 import DashboardLayout from "@/components/DashboardLayout"
-import { useAuthGuard } from "@/hooks/useAuthGuard"
 import { getUserFromToken } from "@/utils/extractUserFromToken"
+import { useRouter } from "next/router"
+import { ImagePlus } from "lucide-react"
 
-export default function CreateComplaintPage() {
-  useAuthGuard()
+export default function CreateBlogPage() {
+//   useAuthGuard()
   const router = useRouter()
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-  })
+  const { projectid } = router.query
   const [image, setImage] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: value,
-    })
-  }
+  const [followUp, setFollowUp] = useState("")
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -47,39 +37,38 @@ export default function CreateComplaintPage() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    const user = getUserFromToken()
     const uploadFormData = new FormData()
     
-    uploadFormData.append("complaint_title", formData.title)
-    uploadFormData.append("complaint_description", formData.description)
-    uploadFormData.append("citizen_id", user.id)
-    uploadFormData.append("status", "pending") // Default status
-    if (image) uploadFormData.append("complaint_image", image)
+    uploadFormData.append("follow_up", followUp)
+    uploadFormData.append("maintenance_project_id", projectid)
+    uploadFormData.append("project_image", image)
+    uploadFormData.append("status", "resolved")
 
-    console.log("test", uploadFormData.get("complaint_title"))
-    console.log("test", uploadFormData.get("complaint_description"))
-    console.log("test", uploadFormData.get("citizen_id"))
+    console.log("test", uploadFormData.get("follow_up"))
+    console.log("test", uploadFormData.get("maintenance_project_id"))
+    console.log("test", uploadFormData.get("project_image"))
     console.log("test", uploadFormData.get("status"))
-    console.log("test", uploadFormData.get("complaint_image"))
 
     try {
-        const response = await fetch(`${backendURL}/complaints/create/`, {
+        // make a call to backendURL/posts/posts/ along with the formData
+        const response = await fetch(`${backendURL}/maintenance/update/`, {
             method: "POST",
             body: uploadFormData,
             headers: {
-            "Accept": "application/json",
+              "Accept": "application/json",
             },
         })
 
         console.log("Response:", await response.json())
         
         if (response.ok) { 
-            alert("Complaint created successfully")
-            router.back()
+          alert("Project status updated successfully")
+          router.back()
         }
 
     } catch (error) {
       console.error("Error submitting form:", error)
+      alert("Failed to submit the project update. Please try again later.")
     } finally {
       setIsSubmitting(false)
     }
@@ -89,37 +78,21 @@ export default function CreateComplaintPage() {
     <DashboardLayout>
       {/* Main Content */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Create New Complaint</h1>
-            <p className="text-gray-600">Share your concerns or experiences about your city to the right people to take action.</p>
+            <h1 className="text-3xl font-bold mb-2">Update Project Status</h1>
+            <p className="text-gray-600">Share your update with the team.</p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                Complaint Title <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={formData.title}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter a descriptive title"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                Complaint Description <span className="text-red-500">*</span>
+              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                Follow up <span className="text-red-500">*</span>
               </label>
               <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
+                id="content"
+                name="content"
+                value={followUp}
+                onChange={(e) => setFollowUp(e.target.value)}
                 rows={8}
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -134,20 +107,7 @@ export default function CreateComplaintPage() {
               <div className="border-2 border-dashed border-gray-300 rounded-md p-6 flex flex-col items-center">
                 {!previewUrl ? (
                   <>
-                    <svg
-                      className="h-12 w-12 text-gray-400"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <ImagePlus className="text-blue-600/80"/>
                     <div className="flex text-sm text-gray-600 mt-2">
                       <label
                         htmlFor="file-upload"
@@ -186,19 +146,19 @@ export default function CreateComplaintPage() {
             <div className="pt-4 flex justify-end space-x-4">
               <button
                 type="button"
-                onClick={() => router.back()}
+                onClick={() => router.push("/blogs")}
                 className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting || !image}
+                disabled={isSubmitting || (!image || !followUp)}
                 className={`px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  isSubmitting || !image ? "opacity-70 cursor-not-allowed" : ""
+                  isSubmitting || (!image || !followUp) ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
-                {isSubmitting ? "Submitting..." : "Submit Complaint"}
+                {isSubmitting ? "Submitting..." : "Submit Post"}
               </button>
             </div>
           </form>
