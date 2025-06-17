@@ -70,6 +70,7 @@ export default function ComplaintApproval() {
 
   return (
     <DashboardLayout>
+    <AccessControl allowedRole="govt_body">
     <main className="">
         <h1 className="text-3xl font-bold mb-2">Complaints Approval</h1>
         <p className="text-gray-600 mb-8">
@@ -119,6 +120,7 @@ export default function ComplaintApproval() {
           </table>
         </div>
       </main>
+    </AccessControl>
     </DashboardLayout>
   )
 }

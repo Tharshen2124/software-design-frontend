@@ -2,6 +2,7 @@ import { useState } from "react"
 import DashboardLayout from "@/components/DashboardLayout"
 import MaintenancePlanTable from "@/components/MaintenancePlanTable"
 import PlanDetailsModal from "@/components/PlanDetailsModal"
+import AccessControl from "@/components/AccessControl"
 
 const maintenancePlans = [
   {
@@ -144,6 +145,7 @@ export default function MaintenancePlansView() {
 
   return (
     <DashboardLayout>
+      <AccessControl allowedRole="govt_body">
       <main>
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Maintenance Plans</h1>
@@ -208,6 +210,7 @@ export default function MaintenancePlansView() {
         {/* Details Modal */}
         {selectedPlan && <PlanDetailsModal plan={selectedPlan} onClose={handleCloseModal} />}
       </main>
+      </AccessControl>
     </DashboardLayout>
   )
 }

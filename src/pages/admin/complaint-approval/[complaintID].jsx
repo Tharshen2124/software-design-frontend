@@ -116,54 +116,56 @@ export default function ComplaintDetails() {
   
   return (
       <DashboardLayout>
-        <button onClick={handleBack} className="flex items-center text-blue-600 mb-6 hover:underline">
-          <ArrowLeft className="w-5 h-5 mr-1" />
-          Back
-        </button>
+        <AccessControl allowedRole="administrator">
+          <button onClick={handleBack} className="flex items-center text-blue-600 mb-6 hover:underline">
+            <ArrowLeft className="w-5 h-5 mr-1" />
+            Back
+          </button>
 
-        <div className="max-w-4xl mx-auto border border-gray-200 rounded-lg p-8">
-          <h1 className="text-3xl font-bold mb-6">Complaint Details</h1>
+          <div className="max-w-4xl mx-auto border border-gray-200 rounded-lg p-8">
+            <h1 className="text-3xl font-bold mb-6">Complaint Details</h1>
 
-          <div className="flex items-center mb-4">
-            <Image src={`${complaint.citizens.users.profile_picture}` } alt="profile image" width="40" height="40" className="rounded-full mr-2" />
-            <span className="font-medium text-lg">{complaint.citizens.users.full_name}</span>
+            <div className="flex items-center mb-4">
+              <Image src={`${complaint.citizens.users.profile_picture}` } alt="profile image" width="40" height="40" className="rounded-full mr-2" />
+              <span className="font-medium text-lg">{complaint.citizens.users.full_name}</span>
+            </div>
+
+            <div className="flex items-center mb-6 text-gray-600">
+              <Calendar className="w-5 h-5 mr-2" />
+              <span>
+                Submitted on: <span className="text-gray-500">{formatDate(complaint.created_at)}</span>
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <button
+                onClick={() => handleApprove(complaint.complaint_id)}
+                className="py-3 bg-green-600 hover:bg-green-700 active:outline-2 active:outline-green-400 text-white font-semibold rounded transition-colors"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => handleReject(complaint.complaint_id)}
+                className="py-3 bg-red-600 hover:bg-red-700 active:outline-2 active:outline-red-400 text-white font-semibold rounded transition-colors"
+              >
+                Reject
+              </button>
+            </div>
+
+            <hr className="border-gray-200 mb-6" />
+
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">{complaint.complaint_title}</h2>
+
+            <p className="text-gray-700 leading-relaxed mb-6">
+              {complaint.complaint_description}
+            </p>
+
+            <a href={`${complaint.complaint_image_url}`} target="_blank" className="flex items-center text-blue-600 hover:underline">
+              <ImageIcon className="w-5 h-5 mr-2" />
+              Attached Image
+            </a>
           </div>
-
-          <div className="flex items-center mb-6 text-gray-600">
-            <Calendar className="w-5 h-5 mr-2" />
-            <span>
-              Submitted on: <span className="text-gray-500">{formatDate(complaint.created_at)}</span>
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <button
-              onClick={() => handleApprove(complaint.complaint_id)}
-              className="py-3 bg-green-600 hover:bg-green-700 active:outline-2 active:outline-green-400 text-white font-semibold rounded transition-colors"
-            >
-              Approve
-            </button>
-            <button
-              onClick={() => handleReject(complaint.complaint_id)}
-              className="py-3 bg-red-600 hover:bg-red-700 active:outline-2 active:outline-red-400 text-white font-semibold rounded transition-colors"
-            >
-              Reject
-            </button>
-          </div>
-
-          <hr className="border-gray-200 mb-6" />
-
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{complaint.complaint_title}</h2>
-
-          <p className="text-gray-700 leading-relaxed mb-6">
-            {complaint.complaint_description}
-          </p>
-
-          <a href={`${complaint.complaint_image_url}`} target="_blank" className="flex items-center text-blue-600 hover:underline">
-            <ImageIcon className="w-5 h-5 mr-2" />
-            Attached Image
-          </a>
-        </div>
+        </AccessControl>
     </DashboardLayout>
   )
 }

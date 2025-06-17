@@ -1,3 +1,4 @@
+import AccessControl from "@/components/AccessControl"
 import DashboardLayout from "@/components/DashboardLayout"
 import { backendURL } from "@/utils/env"
 import { formatDate } from "@/utils/formatDate"
@@ -103,13 +104,15 @@ export default function ComplaintDetails() {
   if (!complaint) {
     return (
         <DashboardLayout>
-          <div className="text-center py-12">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Complaint Not Found</h1>
-            <p className="text-gray-600 mb-6">The complaint you're looking for doesn't exist or has been removed.</p>
-            <Link href="/admin/complaint-approval" className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-              Back to Complaints
-            </Link>
-          </div>
+          <AccessControl allowedRole="govt_body">
+            <div className="text-center py-12">
+              <h1 className="text-2xl font-bold text-gray-800 mb-4">Complaint Not Found</h1>
+              <p className="text-gray-600 mb-6">The complaint you're looking for doesn't exist or has been removed.</p>
+              <Link href="/admin/complaint-approval" className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Back to Complaints
+              </Link>
+            </div>
+          </AccessControl>
         </DashboardLayout>
     )
   }
