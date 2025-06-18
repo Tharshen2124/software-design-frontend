@@ -45,7 +45,7 @@ export default function NavigationBar() {
           </div>
           <div className="hidden lg:flex items-center">
             <Link href="/dashboard" className="ml-4 hover:text-blue-400">Dashboard</Link>
-            <Link href="/blog" className="ml-4 hover:text-blue-400">Blogs</Link>
+            
 
             <AccessControl allowedRole="citizen">
               <Link href="/citizen/complaints/create" className="ml-4 hover:text-blue-400">Complaint</Link>
@@ -63,8 +63,10 @@ export default function NavigationBar() {
             </AccessControl>
 
             <AccessControl allowedRole="maintenance_company">
-              <Link href="/maintenance-company/" className="ml-4 hover:text-blue-400">Maintenance Project</Link>
+              <Link href="/maintenance-company" className="ml-4 hover:text-blue-400">Maintenance Project</Link>
             </AccessControl>
+
+            <Link href="/blog" className="ml-4 hover:text-blue-400">Blogs</Link>
             
           </div>
            <button onClick={() => handleLogout()} className="w-24 h-10 rounded-full bg-blue-800 flex items-center justify-center text-white font-semibold">
