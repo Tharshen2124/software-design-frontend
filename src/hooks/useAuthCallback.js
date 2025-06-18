@@ -35,7 +35,7 @@ export function useAuthCallback() {
 
         sessionStorage.setItem("user", JSON.stringify(user))
 
-        router.replace("/blog")
+        router.replace("/dashboard")
 
       } catch (err) {
         console.error("Failed to decode token:", err)

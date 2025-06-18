@@ -7,6 +7,8 @@ import { PlusCircle } from "lucide-react"
 import { useRouter } from "next/router"
 import { formatDate } from "@/utils/formatDate"
 import { truncateText } from "@/utils/truncateText"
+import AccessControl from "@/components/AccessControl"
+
 
 export default function BlogsPage() {
   useAuthGuard()
@@ -26,6 +28,7 @@ export default function BlogsPage() {
 
   return (
     <DashboardLayout>
+      <AccessControl allowedRole={["citizen", "administrator", "govt_body", "maintenance_company"]}>
         <h1 className="text-4xl font-bold text-center mb-2">Blogs</h1>
         <div className="flex flex-col justify-between items-center gap-y-4 mb-5">
           <p className="text-gray-600">
@@ -44,6 +47,7 @@ export default function BlogsPage() {
             <BlogCard key={post.id} post={post} />
           ))}
         </div>
+        </AccessControl>
     </DashboardLayout>
   )
 }

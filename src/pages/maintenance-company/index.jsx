@@ -6,6 +6,7 @@ import { backendURL } from "@/utils/env"
 import { getUserFromToken } from "@/utils/extractUserFromToken"
 import PendingProjectsTable from "@/components/MaintenanceProjectTable/pendingProjectsTable"
 import InProgressProjectsTable from "@/components/MaintenanceProjectTable/inProgressProjectsTables"
+import AccessControl from "@/components/AccessControl"
 
 export default function AdminInvitePage() {
   const [activeTab, setActiveTab] = useState("pending")
@@ -37,6 +38,7 @@ export default function AdminInvitePage() {
 
   return (
       <DashboardLayout>
+        <AccessControl allowedRole="maintenance_company">
         <div>
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Maintenance Project</h1>
@@ -91,6 +93,7 @@ export default function AdminInvitePage() {
             </div>
           ) 
           )}
+          </AccessControl>
       </DashboardLayout>
   )
 }
