@@ -45,11 +45,11 @@ export default function NavigationBar() {
           </div>
           <div className="hidden lg:flex items-center">
             <Link href="/dashboard" className="ml-4 hover:text-blue-400">Dashboard</Link>
+            <Link href="/blog" className="ml-4 hover:text-blue-400">Blogs</Link>
 
             <AccessControl allowedRole="citizen">
               <Link href="/citizen/complaints/create" className="ml-4 hover:text-blue-400">Complaint</Link>
               <Link href="/citizen/complaints/history" className="ml-4 hover:text-blue-400">History</Link>
-              <Link href="/blog" className="ml-4 hover:text-blue-400">Blogs</Link>
             </AccessControl>
 
             <AccessControl allowedRole="administrator">
@@ -60,6 +60,10 @@ export default function NavigationBar() {
             <AccessControl allowedRole="govt_body">
               <Link href="/government/complaint-approval" className="ml-4 hover:text-blue-400">Complaints Approval</Link>
               <Link href="/government/maintenance-plan" className="ml-4 hover:text-blue-400">Maintenance Plan</Link>
+            </AccessControl>
+
+            <AccessControl allowedRole="maintenance_company">
+              <Link href="/maintenance-company/" className="ml-4 hover:text-blue-400">Maintenance Project</Link>
             </AccessControl>
             
           </div>
