@@ -1,48 +1,12 @@
-import { useEffect, useState } from 'react';
-import { backendURL } from "@/utils/env";
-import { getUserFromToken } from "@/utils/extractUserFromToken";
+import { useUserRole } from "@/contexts/UserRoleContexts";
 
 export default function AccessControl({ allowedRole, children }) {
+  const { role, loading } = useUserRole();
 
-    const [userRole, setUserRole] = useState(null);
-    const [loading, setLoading] = useState(true);
+  if (loading) return null;
 
-    useEffect(() => {
-        const user = getUserFromToken();
+  const allowedRoles = Array.isArray(allowedRole) ? allowedRole : [allowedRole];
+  if (!allowedRoles.includes(role)) return null;
 
-        const fetchRole = async () => {
-        try {
-            const response = await fetch(`${backendURL}/auth/get-role?user_id=${user.id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-                },
-            });
-
-            if (!response.ok) {
-            throw new Error('Failed to fetch role');
-            }
-
-            const data = await response.json();
-            setUserRole(data.role);
-        } catch (error) {
-            console.error('Error fetching role:', error);
-            setUserRole(null);
-        } finally {
-            setLoading(false);
-        }
-        };
-
-        fetchRole();
-    }, []);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (userRole !== allowedRole) {
-        return <div>Access Denied</div>;
-    }
-
-    return <>{children}</>;
+  return <>{children}</>;
 }

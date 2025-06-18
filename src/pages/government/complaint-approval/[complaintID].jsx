@@ -6,6 +6,7 @@ import { ArrowLeft, Calendar, Link } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import AccessControl from "@/components/AccessControl"
 
 export default function ComplaintDetails() {
   const router = useRouter()
@@ -119,6 +120,7 @@ export default function ComplaintDetails() {
   
   return (
       <DashboardLayout>
+        <AccessControl allowedRole="govt_body">
         <button onClick={handleBack} className="flex items-center text-blue-600 mb-6 hover:underline">
           <ArrowLeft className="w-5 h-5 mr-1" />
           Back
@@ -167,6 +169,7 @@ export default function ComplaintDetails() {
             Attached Image
           </a>
         </div>
+        </AccessControl>
     </DashboardLayout>
   )
 }

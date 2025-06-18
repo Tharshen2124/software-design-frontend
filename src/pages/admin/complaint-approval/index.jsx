@@ -3,6 +3,7 @@ import { backendURL } from "@/utils/env"
 import { truncateText } from "@/utils/truncateText"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import AccessControl from "@/components/AccessControl";
 
 export default function ComplaintApproval() {
   const [complaints, setComplaints] = useState()
