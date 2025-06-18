@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/DashboardLayout"
 import { backendURL } from "@/utils/env"
 import { formatDate } from "@/utils/formatDate"
-import { ArrowLeft, Calendar, Link } from "lucide-react"
+import { ArrowLeft, Calendar, ImageIcon, Link } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
