@@ -3,6 +3,7 @@ import { backendURL } from "@/utils/env"
 import { truncateText } from "@/utils/truncateText"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import AccessControl from "@/components/AccessControl"
 
 export default function ComplaintApproval() {
   const [complaints, setComplaints] = useState()
@@ -70,6 +71,7 @@ export default function ComplaintApproval() {
 
   return (
     <DashboardLayout>
+    <AccessControl allowedRole="govt_body">
     <main className="">
         <h1 className="text-3xl font-bold mb-2">Complaints Approval</h1>
         <p className="text-gray-600 mb-8">
@@ -119,6 +121,7 @@ export default function ComplaintApproval() {
           </table>
         </div>
       </main>
+    </AccessControl>
     </DashboardLayout>
   )
 }

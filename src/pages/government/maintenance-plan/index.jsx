@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/DashboardLayout"
 import MaintenancePlanTable from "@/components/MaintenancePlanTable"
 import PlanDetailsModal from "@/components/PlanDetailsModal"
 import Loading from "@/components/Loading"
+import AccessControl from "@/components/AccessControl"
 
 export default function MaintenancePlansView() {
   const [maintenanceProjects, setMaintenanceProjects] = useState([])
@@ -101,6 +102,8 @@ export default function MaintenancePlansView() {
 
   return (
     <DashboardLayout>
+      <AccessControl allowedRole="govt_body">
+      <main>
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Maintenance Projects</h1>
           <p className="text-gray-600 mt-1">View and manage all maintenance projects assigned to contractors</p>
@@ -162,8 +165,12 @@ export default function MaintenancePlansView() {
           )}
         </div>
 
-      {/* Details Modal */}
-      {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
+        {/* Details Modal */}
+        {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
+        {/* Details Modal */}
+        {selectedPlan && <PlanDetailsModal plan={selectedPlan} onClose={handleCloseModal} />}
+      </main>
+      </AccessControl>
     </DashboardLayout>
   )
 }

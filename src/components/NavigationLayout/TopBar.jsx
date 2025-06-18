@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Sidebar } from "./Sidebar";
 import { backendURL } from "@/utils/env";
 import { useRouter } from "next/router";
+import AccessControl from "../AccessControl";
 
 export default function NavigationBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,15 +44,28 @@ export default function NavigationBar() {
             </Link>
           </div>
           <div className="hidden lg:flex items-center">
-            <Link href="/citizen/complaints/create" className="hover:text-blue-400">
-              Complain
-            </Link>
-            <Link href="/citizen/complaints/history" className="ml-4 hover:text-blue-400">
-              History
-            </Link>
-            <Link href="/blog" className="ml-4 hover:text-blue-400">
-              Blogs
-            </Link>
+            <Link href="/dashboard" className="ml-4 hover:text-blue-400">Dashboard</Link>
+            <Link href="/blog" className="ml-4 hover:text-blue-400">Blogs</Link>
+
+            <AccessControl allowedRole="citizen">
+              <Link href="/citizen/complaints/create" className="ml-4 hover:text-blue-400">Complaint</Link>
+              <Link href="/citizen/complaints/history" className="ml-4 hover:text-blue-400">History</Link>
+            </AccessControl>
+
+            <AccessControl allowedRole="administrator">
+              <Link href="/admin/complaint-approval" className="ml-4 hover:text-blue-400">Complaints Approval</Link>
+              <Link href="/admin/user-management" className="ml-4 hover:text-blue-400">User Management</Link>
+            </AccessControl>
+
+            <AccessControl allowedRole="govt_body">
+              <Link href="/government/complaint-approval" className="ml-4 hover:text-blue-400">Complaints Approval</Link>
+              <Link href="/government/maintenance-plan" className="ml-4 hover:text-blue-400">Maintenance Plan</Link>
+            </AccessControl>
+
+            <AccessControl allowedRole="maintenance_company">
+              <Link href="/maintenance-company/" className="ml-4 hover:text-blue-400">Maintenance Project</Link>
+            </AccessControl>
+            
           </div>
            <button onClick={() => handleLogout()} className="w-24 h-10 rounded-full bg-blue-800 flex items-center justify-center text-white font-semibold">
               Logout
