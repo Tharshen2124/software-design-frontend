@@ -12,16 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function ComplaintsOverTimeChart() {
-  const [timeFilter, setTimeFilter] = useState("30days");
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [analyticsData, setAnalyticsData] = useState([]);
-
-  const currentYear = new Date().getFullYear();
-  const years = [currentYear - 2, currentYear - 1, currentYear];
-
-  const months = [
+const months = [
     "January",
     "February",
     "March",
@@ -36,6 +27,17 @@ export default function ComplaintsOverTimeChart() {
     "December",
   ];
 
+export default function ComplaintsOverTimeChart() {
+  const [timeFilter, setTimeFilter] = useState("30days");
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [analyticsData, setAnalyticsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const currentYear = new Date().getFullYear();
+  const years = [currentYear - 2, currentYear - 1, currentYear];
+
+  
   useEffect(() => {
     const user = getUserFromToken();
     const baseURL = `${backendURL}/dashboard?user_id=${user.id}`;
@@ -44,6 +46,7 @@ export default function ComplaintsOverTimeChart() {
         ? `${baseURL}&timeline=${months[selectedMonth - 1]}&year=${selectedYear}`
         : `${baseURL}&timeline=${timeFilter}`;
 
+    setLoading(true);
     fetch(url, {
       method: "GET",
       headers: {
@@ -59,7 +62,11 @@ export default function ComplaintsOverTimeChart() {
         }));
         setAnalyticsData(formatted);
       })
-      .catch((err) => console.error("Error:", err));
+      .catch((err) => {
+        console.error("Error:", err),
+        setAnalyticsData([]);
+      })
+      .finally(() => setLoading(false));
   }, [timeFilter, selectedMonth, selectedYear]);
 
   return (
@@ -168,21 +175,6 @@ export function ProjectsOverTimeChart() {
   const currentYear = new Date().getFullYear();
   const years = [currentYear - 2, currentYear - 1, currentYear];
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   useEffect(() => {
     const user = getUserFromToken();
     const baseURL = `${backendURL}/dashboard?user_id=${user.id}`;
@@ -191,6 +183,7 @@ export function ProjectsOverTimeChart() {
         ? `${baseURL}&timeline=${months[selectedMonth - 1]}&year=${selectedYear}`
         : `${baseURL}&timeline=${timeFilter}`;
 
+    setLoading(true);
     fetch(url, {
       method: "GET",
       headers: {
@@ -206,7 +199,11 @@ export function ProjectsOverTimeChart() {
         }));
         setAnalyticsData(formatted);
       })
-      .catch((err) => console.error("Error:", err));
+      .catch((err) => {
+        console.error("Error:", err),
+        setAnalyticsData([]);
+      })
+      .finally(() => setLoading(false));
   }, [timeFilter, selectedMonth, selectedYear]);
 
   return (
