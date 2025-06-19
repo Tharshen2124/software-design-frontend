@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { backendURL } from "@/utils/env";
-import { summaryConfig, summaryProject } from "./AnalyticsMapping";
+import { summaryConfig, summaryProject, GovtSummaryProject } from "./AnalyticsMapping";
 import SummaryCards from "@/components/AnalyticsDashboard/SummaryCards";
 import { getUserFromToken } from "@/utils/extractUserFromToken";
 
@@ -98,7 +98,7 @@ export function GovtProjectSummaryPages() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-      {Object.entries(summaryProject).map(
+      {Object.entries(GovtSummaryProject).map(
         ([key, { label, icon: Icon, className, color }]) => (
           <SummaryCards
             key={key}
