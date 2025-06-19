@@ -165,20 +165,12 @@ export default function MaintenancePlansView() {
           )}
         </div>
 
-<<<<<<< HEAD
         {/* Details Modal */}
         {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
-=======
->>>>>>> 2bedc9c57f4dbd7e2569476e9a146265fac4c477
         {/* Details Modal */}
         {selectedPlan && <PlanDetailsModal plan={selectedPlan} onClose={handleCloseModal} />}
       </main>
       </AccessControl>
-<<<<<<< HEAD
-=======
-      {/* Details Modal */}
-      {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
->>>>>>> 2bedc9c57f4dbd7e2569476e9a146265fac4c477
     </DashboardLayout>
   )
 }
