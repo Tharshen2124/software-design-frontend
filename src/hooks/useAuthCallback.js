@@ -35,7 +35,7 @@ export function useAuthCallback() {
 
         sessionStorage.setItem("user", JSON.stringify(user))
 
-        router.replace("/dashboard")
+        window.location.href = "/dashboard"; // Full page reload to initialize context
 
       } catch (err) {
         console.error("Failed to decode token:", err)
