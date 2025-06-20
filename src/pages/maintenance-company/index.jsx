@@ -16,12 +16,11 @@ export default function AdminInvitePage() {
 
   useEffect(() => {
     setIsLoading(true)
-    const user_id = "b15ed534-ad32-418d-82bc-020b9e0a6122"
-    // const user = getUserFromToken()
+    const user = getUserFromToken()
 
     const fetchMaintenanceProjects = async () => {
       try {
-        const response = await fetch(`${backendURL}/maintenance/company/${user_id}`)
+        const response = await fetch(`${backendURL}/maintenance/company/${user.id}`)
         const data = await response.json()
         setPendingProjects(data.pending_projects || [])
         setInProgressProjects(data.in_progress_projects || [])
