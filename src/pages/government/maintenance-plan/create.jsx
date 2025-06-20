@@ -4,6 +4,7 @@ import ComplaintItem from "@/components/ComplaintItem"
 import { useAuthGuard } from "@/hooks/useAuthGuard"
 import { backendURL } from "@/utils/env"
 import Loading from "@/components/Loading"
+import { useRouter } from "next/router"
 
 export default function CreateMaintenancePlan() {
   useAuthGuard()
@@ -17,6 +18,7 @@ export default function CreateMaintenancePlan() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     setIsLoading(true)
@@ -101,11 +103,15 @@ export default function CreateMaintenancePlan() {
         setComplaints(complaints.map(c => ({ ...c, selected: false }))) // Reset selected complaints
       }
     } catch (error) {
-      console.error("Error submitting maintenance plan:", error)
+      console.error("Error submitting maintenance project:", error)
+      alert("Maintenance project submitted failed to submit. Please try again.")
       setIsError(true)
       return
     }
-    alert("Maintenance plan submitted successfully")
+    alert("Maintenance project submitted successfully")
+    setIsLoading(false)
+    router.push('/government/maintenance-plan')
+
   }
  
   const filteredComplaints = complaints.filter((complaint) =>
@@ -118,7 +124,7 @@ export default function CreateMaintenancePlan() {
     return (
       <DashboardLayout>
         <main className="px-4 py-8">
-          <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Plan</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Project</h1>
           <p className="text-red-600 mt-2">
             Something went wrong while fetching complaints. Please try again later.
           </p>
@@ -131,7 +137,7 @@ export default function CreateMaintenancePlan() {
     return (
       <DashboardLayout>
         <main className="px-4 py-8">
-          <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Plan</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Project</h1>
           <p className="text-gray-600 mt-1 mb-8">
             No approved complaints found. Please ensure there are approved complaints to create a maintenance plan.
           </p>
@@ -143,9 +149,9 @@ export default function CreateMaintenancePlan() {
   return (
     <DashboardLayout>
       <main className="px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Plan</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Create Maintenance Project</h1>
         <p className="text-gray-600 mt-1 mb-8">
-          Create a plan for maintenance companies to work on!
+          Create a project for maintenance companies to work on!
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
