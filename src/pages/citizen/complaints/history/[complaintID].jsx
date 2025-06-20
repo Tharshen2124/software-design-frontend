@@ -80,6 +80,17 @@ export default function ComplaintDetails() {
 
           <hr className="border-gray-200 mb-6" />
 
+          <div className={`px-4 py-2 rounded-full mb-6 w-32 text-center font-semibold 
+            ${
+              complaint.status === 'pending' ? 'bg-yellow-300 text-black' : 
+              complaint.status === 'filtered' ? 'bg-orange-600 text-white' :
+              complaint.status === 'approved' ? 'bg-blue-500 text-white' : 
+              complaint.status === 'in_progress' ? 'bg-indigo-600 text-white' :
+              complaint.status === 'resolved' ? 'bg-green-600 text-white' :
+              'bg-red-500 text-white'}`}>
+            {complaint.status.charAt(0).toUpperCase() + complaint.status.slice(1)}
+          </div>
+
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">{complaint.complaint_title}</h2>
 
           <p className="text-gray-700 leading-relaxed mb-6">
