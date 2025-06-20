@@ -55,7 +55,7 @@ export default function ComplaintsOverTimeChart() {
     })
       .then((res) => res.json())
       .then((data) => {
-        const rawData = data.analytics.complaints_over_time || {};
+        const rawData = data?.analytics?.complaints_over_time || {};
         const formatted = Object.entries(rawData).map(([date, complaints]) => ({
           formattedDate: date,
           complaints,
