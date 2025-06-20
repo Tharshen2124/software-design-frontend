@@ -3,8 +3,8 @@ import { backendURL } from "@/utils/env"
 import DashboardLayout from "@/components/DashboardLayout"
 import MaintenancePlanTable from "@/components/MaintenancePlanTable"
 import PlanDetailsModal from "@/components/PlanDetailsModal"
-import AccessControl from "@/components/AccessControl"
 import Loading from "@/components/Loading"
+import AccessControl from "@/components/AccessControl"
 
 export default function MaintenancePlansView() {
   const [maintenanceProjects, setMaintenanceProjects] = useState([])
@@ -166,11 +166,11 @@ export default function MaintenancePlansView() {
         </div>
 
         {/* Details Modal */}
+        {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
+        {/* Details Modal */}
         {selectedPlan && <PlanDetailsModal plan={selectedPlan} onClose={handleCloseModal} />}
       </main>
       </AccessControl>
-      {/* Details Modal */}
-      {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
     </DashboardLayout>
   )
 }
