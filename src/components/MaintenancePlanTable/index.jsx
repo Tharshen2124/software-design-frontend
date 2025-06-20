@@ -111,7 +111,7 @@ export default function MaintenancePlanTable({ projects, onViewDetails }) {
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <button
                   onClick={() => onViewDetails(project)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm transition-colors"
+                  className="border border-blue-600 hover:bg-blue-500 hover:text-white text-blue-600 px-3 py-2 font-semibold rounded-md text-sm transition-colors"
                 >
                   More Details
                 </button>

@@ -171,6 +171,7 @@ export function ProjectsOverTimeChart() {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [analyticsData, setAnalyticsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const currentYear = new Date().getFullYear();
   const years = [currentYear - 2, currentYear - 1, currentYear];

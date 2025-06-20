@@ -1,4 +1,6 @@
+import { ImageIcon } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function PlanDetailsModal({ project, onClose }) {
   const getStatusColor = (status) => {
@@ -110,10 +112,12 @@ export default function PlanDetailsModal({ project, onClose }) {
                 <div className="bg-gray-50 rounded-lg p-4 space-y-3">
                   <div className="flex items-center space-x-3">
                     {project.maintenance_companies.users.profile_picture && (
-                      <img
+                      <Image
                         className="h-12 w-12 rounded-full"
                         src={project.maintenance_companies.users.profile_picture || "/placeholder.svg"}
-                        alt=""
+                        alt="profile picture"
+                        width={32}
+                        height={32}
                       />
                     )}
                     <div>
@@ -142,16 +146,22 @@ export default function PlanDetailsModal({ project, onClose }) {
             </div>
           </div>
 
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Follow Up</h3>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-gray-700">{project.follow_up || <span className="text-gray-400">No follow up as of now...</span>}</p>
+            </div>
+          </div>
+
           {/* Project Image */}
           {project.project_image_url && (
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Project Image</h3>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <Image
-                  src={project.project_image_url || "/placeholder.svg"}
-                  alt="Project"
-                  className="max-w-full h-auto rounded-md"
-                />
+              <div className="rounded-lg">
+                <Link href={project.project_image_url} target="_blank" rel="noopener noreferrer" className="flex items-center hover:underline text-blue-600 active:text-blue-800">
+                  <ImageIcon className="w-5 h-5 mr-2" />
+                  Attached Document
+                </Link>
               </div>
             </div>
           )}
@@ -178,11 +188,10 @@ export default function PlanDetailsModal({ project, onClose }) {
                   <p className="text-gray-700 mb-2">{complaint.complaint_description}</p>
                   {complaint.complaint_image_url && (
                     <div className="mb-2">
-                      <img
-                        src={complaint.complaint_image_url || "/placeholder.svg"}
-                        alt="Complaint"
-                        className="max-w-xs h-auto rounded-md"
-                      />
+                      <Link href={complaint.complaint_image_url} target="_blank" rel="noopener noreferrer" className="flex items-center hover:underline text-blue-600 active:text-blue-800">
+                        <ImageIcon className="w-5 h-5 mr-2" />
+                        Attached Document
+                      </Link>
                     </div>
                   )}
                   <div className="flex justify-between text-sm text-gray-600">

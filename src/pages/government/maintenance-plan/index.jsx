@@ -5,6 +5,8 @@ import MaintenancePlanTable from "@/components/MaintenancePlanTable"
 import PlanDetailsModal from "@/components/PlanDetailsModal"
 import Loading from "@/components/Loading"
 import AccessControl from "@/components/AccessControl"
+import { useRouter } from "next/router"
+import { PlusCircle } from "lucide-react"
 
 export default function MaintenancePlansView() {
   const [maintenanceProjects, setMaintenanceProjects] = useState([])
@@ -13,6 +15,7 @@ export default function MaintenancePlansView() {
   const [statusFilter, setStatusFilter] = useState("All")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const router = useRouter()
 
   // Fetch data from your API
   useEffect(() => {
@@ -121,7 +124,13 @@ export default function MaintenancePlansView() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="md:w-48">
+            <div>
+              <button onClick={() => router.push('/government/maintenance-plan/create')} className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 font-semibold rounded-md">
+                <PlusCircle className="w-5 h-5 mr-2" />
+                New Project
+              </button>
+            </div>
+            <div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -167,8 +176,6 @@ export default function MaintenancePlansView() {
 
         {/* Details Modal */}
         {selectedProject && <PlanDetailsModal project={selectedProject} onClose={handleCloseModal} />}
-        {/* Details Modal */}
-        {selectedPlan && <PlanDetailsModal plan={selectedPlan} onClose={handleCloseModal} />}
       </main>
       </AccessControl>
     </DashboardLayout>
