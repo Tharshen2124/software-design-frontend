@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/DashboardLayout"
 import { backendURL } from "@/utils/env"
+import { getUserFromToken } from "@/utils/extractUserFromToken"
 import { truncateText } from "@/utils/truncateText"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -7,15 +8,32 @@ import { useEffect, useState } from "react"
 export default function ComplaintHistory() {
   const [complaints, setComplaints] = useState()
   const router = useRouter()
+  const [user, setUser] = useState(null)
 
+  // Step 1: Ensure we're on client and get user from sessionStorage
   useEffect(() => {
-    async function getData() {
-      const response = await fetch(`${backendURL}/complaints/custom-admin/`)
-      const data = await response.json()
-      setComplaints(data.complaints)
+    if (typeof window !== "undefined") {
+      const u = getUserFromToken()
+      setUser(u)
     }
-    getData()
   }, [])
+
+  // Step 2: Once user is loaded, fetch complaint data
+  useEffect(() => {
+    if (!user) return
+
+    async function getData() {
+      try {
+        const response = await fetch(`${backendURL}/complaints/citizen-data/${user.id}/`)
+        const data = await response.json()
+        setComplaints(data.complaints || [])
+      } catch (err) {
+        console.error("Failed to fetch complaints:", err)
+      }
+    }
+
+    getData()
+  }, [user])
 
     const handleViewDetails = (id) => {
       router.push(`/citizen/complaints/history/${id}`)
